@@ -1,36 +1,59 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-int main(void){
+int main(void) {
 
-  FILE * clientes;
-  clientes = fopen("clientes.txt","a");
+  FILE *arquivo;
+  arquivo = fopen("clientes.txt", "w");
 
-  if(clientes == NULL){
-    printf("erro ao criar o arquivo");
+  if (arquivo == NULL) {
+    printf("Erro ao criar o arquivo!");
     return 1;
   }
 
-int x = 1;
-char nome[50];
+  char clientes[100][50];
+  int x = 1;
+  char nome[50];
+  int qtdClientes = 0;
 
-  while (x == 1){
-    
-    // vai pedindo cliente e botando no negocio
-    printf("Informe um nome a ser cadastrado");
+  // Loop para adicionar clientes ao vetor clientes e ao arquivo
+  while (x == 1) {
+
+    printf("Informe um nome a ser cadastrado: ");
     scanf(" %[^\n]", nome);
 
-    fprintf(clientes, "%s \n", nome);    
-    //scanf, se colocar que nao quer mais nada
-    printf("1-para cadastras outro cliente / 0-para encerrar o programa.\n");
-    scanf("%d", &x);
-
-   // se o resultado for 0
-    if (x==0){
-        x = 0;
-        fclose(clientes);
+    if (qtdClientes < 100) { // Testa se há espaço no vetor clientes
+      strcpy(clientes[qtdClientes], nome); // Adiciona o nome ao vetor clientes
+      fprintf(arquivo, "%s\n", nome); // Adiciona o nome ao arquivo clientes.txt
+      qtdClientes++;
+    } else {
+      printf("Não há espaço suficiente no vetor");
+      break;
     }
-    
+
+    printf("1 - Cadastrar outro cliente / 0 - Para encerrar o programa.\n");
+    scanf("%d", &x);
+    if (x == 0) {
+      x = 0;
+      fclose(arquivo);
+      for (int i = 0; i < qtdClientes; i++) {
+        printf("%s \n", clientes[i]);
+      }
+    }
   }
-  
+
+  bubble_sort(clientes, qtdClientes);
+
+  arquivo = fopen("clientes.txt", "w");
+  if (arquivo == NULL) {
+    printf("Erro ao abrir o arquivo!");
+    return 1;
+  }
+
+  for (int i = 0; i < qtdClientes; i++) {
+    fprintf(arquivo, "%s \n", clientes[i]);
+  }
+
+  fclose(arquivo);
 }
