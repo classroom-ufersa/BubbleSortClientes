@@ -6,6 +6,7 @@
 
 int main(void) {
 
+  Cliente* lista_clientes[100];
   FILE *arquivo;
   arquivo = fopen("clientes.txt", "w");
 
@@ -18,7 +19,6 @@ int main(void) {
   int x = 1;
   char nome[50];
   int qtdClientes = 0;
-
   // Loop para adicionar clientes ao vetor clientes e ao arquivo
   while (x == 1) {
 
@@ -26,8 +26,10 @@ int main(void) {
     scanf(" %[^\n]", nome);
 
     if (qtdClientes < 100) { // Testa se há espaço no vetor clientes
-      strcpy(clientes[qtdClientes], nome); // Adiciona o nome ao vetor clientes
-      fprintf(arquivo, "%s\n", nome); // Adiciona o nome ao arquivo clientes.txt
+      Cliente* novo_cliente = (Cliente *)malloc(sizeof(Cliente));
+      preenche_cliente(novo_cliente);
+      lista_clientes[qtdClientes] = novo_cliente;
+      fprintf(arquivo, "%s\t %s \t %d", novo_cliente->nome, novo_cliente->endereco, novo_cliente->codigo); // Adiciona o nome ao arquivo clientes.txt
       qtdClientes++;
     } else {
       printf("Não há espaço suficiente no vetor");

@@ -1,14 +1,7 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "cliente.h"
 
-struct cliente{
-    char nome[50];
-    char endereco[50];
-    int codigo;
-};
-
-struct clientes * preenche_cliente(struct cliente *cliente){
+Cliente * preenche_cliente(Cliente *cliente){
 
     printf("Digite o nome do cliente (ou 0 para encerrar): ");
     scanf(" %[^\n]", cliente->nome);
