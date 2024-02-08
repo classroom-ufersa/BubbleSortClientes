@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "bubblesort.h"
+#include "cliente.h"
 
 int main(void) {
 
