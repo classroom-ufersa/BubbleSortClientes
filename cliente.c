@@ -8,7 +8,7 @@ struct cliente{
     int codigo;
 };
 
-struct clientes * preenche_cliente(struct clientes *cliente){
+struct clientes * preenche_cliente(struct cliente *cliente){
 
     printf("Digite o nome do cliente (ou 0 para encerrar): ");
     scanf(" %[^\n]", cliente->nome);
