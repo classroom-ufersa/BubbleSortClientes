@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include "cliente.h"
 
-Cliente * preenche_cliente(Cliente *cliente){
-
+void preenche_cliente(Cliente *cliente) {
     printf("Digite o nome do cliente (ou 0 para encerrar): ");
     scanf(" %[^\n]", cliente->nome);
 
@@ -13,6 +12,4 @@ Cliente * preenche_cliente(Cliente *cliente){
     scanf("%d", &cliente->codigo);
 
     printf("---------------------------\n");
-
-    return cliente;
 }
