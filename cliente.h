@@ -1,3 +1,6 @@
+#ifndef CLIENTE_H
+#define CLIENTE_H
+
 /*Struct que armazena os dados do cliente
 */
 typedef struct cliente{
@@ -8,4 +11,6 @@ typedef struct cliente{
 
 /*Função que preenche os dados do cliente com informações inseridas via teclado
 */
-Cliente * preenche_cliente(Cliente *cliente);
+void preenche_cliente(Cliente *cliente);
+
+#endif
