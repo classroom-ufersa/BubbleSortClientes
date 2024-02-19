@@ -7,7 +7,7 @@
 int main(void) {
   Cliente lista_clientes[100];
   FILE *arquivo;
-  arquivo = fopen("clientes.txt", "r");
+  arquivo = fopen("clientes.txt", "a+");
 
   if (arquivo == NULL) {
     printf("Erro ao criar o arquivo!");
@@ -35,7 +35,7 @@ int main(void) {
 
   bubble_sort(lista_clientes, qtdClientes);
 
-  arquivo = fopen("clientes.txt", "a");
+  arquivo = fopen("clientes.txt", "a+");
   if (arquivo == NULL) {
     printf("Erro ao abrir o arquivo!");
     return 1;
