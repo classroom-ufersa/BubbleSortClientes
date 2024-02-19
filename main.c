@@ -8,6 +8,10 @@ int main(void) {
   Cliente lista_clientes[100];
   FILE *arquivo;
   arquivo = fopen("clientes.txt", "a+");
+  int arquivoVazio = fgetc(arquivo);
+  if (arquivoVazio == EOF) {
+      fprintf(arquivo, "Nome \t Endereço \t Código \n");
+  }
 
   if (arquivo == NULL) {
     printf("Erro ao criar o arquivo!");
@@ -41,7 +45,6 @@ int main(void) {
     return 1;
   }
 
-  fprintf(arquivo, "Nome \t Endereço \t Código \n");
   for (int i = 0; i < qtdClientes; i++) {
     fprintf(arquivo, " %s \t %s \t %d \n", lista_clientes[i].nome,
             lista_clientes[i].endereco, lista_clientes[i].codigo);
