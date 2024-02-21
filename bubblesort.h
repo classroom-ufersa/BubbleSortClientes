@@ -5,6 +5,6 @@
 
 /*Função que implementa o algoritmo de ordenação Bubble Sort
 */
-void bubble_sort(Cliente clientes[100], int num_clientes);
+void bubble_sort(Cliente clientes[], int num_clientes);
 
 #endif
