@@ -1,6 +1,4 @@
 #include "cliente.h"
-#include <stdbool.h>
-#include <string.h>
 
 void bubble_sort(Cliente clientes[], int num_clientes) {
   int i, j;
