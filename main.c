@@ -2,39 +2,56 @@
 #include "cliente.h"
 
 int main(void) {
-  Cliente *lista_clientes = NULL;
-  FILE *arquivo;
-  arquivo = fopen("clientes.txt", "a+");
-  int arquivoVazio = fgetc(arquivo);
-  if (arquivoVazio == EOF) {
-      fprintf(arquivo, "Nome \t Endereço \t Código \n");
-  }
 
-  if (arquivo == NULL) {
-    printf("Erro ao criar o arquivo!");
-    return 1;
-  }
+    Cliente *lista_clientes_atuais = NULL;
+    Cliente *lista_clientes_novos = NULL;
+    Cliente *lista_final = NULL;
 
-  int x = 1;
-  int qtdClientes = 0;
-  while (x == 1) {
-    Cliente *temp = realloc(lista_clientes, (qtdClientes + 1) * sizeof(Cliente));
-    if (temp == NULL) {
-      printf("Erro ao alocar memória!");
-      break;
+    FILE *arquivo;
+    arquivo = fopen("clientes.txt", "a+");
+    if (arquivo == NULL) {
+        printf("Erro ao abrir o arquivo!");
+        return 1;
     }
-    lista_clientes = temp;
 
-    preenche_cliente(&lista_clientes[qtdClientes]);
-    qtdClientes++;
+    int qtdClientesAtuais = 0;
+    char linha[256];
 
-    printf("1 - Cadastrar outro cliente / 0 - Para encerrar o programa.\n");
-    scanf("%d", &x);
-    if (x == 0) {
-      x = 0;
-      fclose(arquivo);
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        lista_clientes_atuais = realloc(lista_clientes_atuais, (qtdClientesAtuais + 1) * sizeof(Cliente));
+        if (lista_clientes_atuais == NULL) {
+            printf("Erro ao alocar memória!");
+            fclose(arquivo);
+            return 1;
+        }
+        sscanf(linha, "%s \t %s \t %d", lista_clientes_atuais[qtdClientesAtuais].nome,
+               lista_clientes_atuais[qtdClientesAtuais].endereco, &lista_clientes_atuais[qtdClientesAtuais].codigo);
+        qtdClientesAtuais++;
     }
-  }
+
+    printf("Clientes carregados: %d\n", qtdClientesAtuais);
+
+    int cadastro = 1;
+    int qtdClientesNovos = 0;
+    while (cadastro == 1) {
+        lista_clientes_novos = realloc(lista_clientes_novos, (qtdClientesNovos + 1) * sizeof(Cliente));
+        if (lista_clientes_novos == NULL) {
+            printf("Erro ao alocar memória!");
+            fclose(arquivo);
+            return 1;
+        }
+
+        preenche_cliente(&lista_clientes_novos[qtdClientesNovos]);
+        qtdClientesNovos++;
+
+        printf("1 - Cadastrar outro cliente / 0 - Para encerrar o programa.\n");
+        scanf("%d", &cadastro);
+        if (cadastro == 0) {
+            cadastro = 0;
+        }
+    }
+
+    printf("Novos clientes cadastrados: %d\n", qtdClientesNovos);
 
   bubble_sort(lista_clientes, qtdClientes);
 
