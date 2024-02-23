@@ -53,22 +53,35 @@ int main(void) {
 
     printf("Novos clientes cadastrados: %d\n", qtdClientesNovos);
 
-  bubble_sort(lista_clientes, qtdClientes);
+int qtdClientesTotal = qtdClientesNovos + qtdClientesAtuais;
+    lista_final = malloc(qtdClientesTotal * sizeof(Cliente));
+    if (lista_final == NULL) {
+        printf("Erro ao alocar memória");
+        fclose(arquivo);
+        return 1;
+    }
 
-  arquivo = fopen("clientes.txt", "a+");
-  if (arquivo == NULL) {
-    printf("Erro ao abrir o arquivo!");
-    return 1;
-  }
+    for (int i = 0; i < qtdClientesAtuais; i++) {
+        lista_final[i] = lista_clientes_atuais[i];
+    }
 
-  for (int i = 0; i < qtdClientes; i++) {
-    fprintf(arquivo, " %s \t %s \t %d \n", lista_clientes[i].nome,
-            lista_clientes[i].endereco, lista_clientes[i].codigo);
-  }
-  fclose(arquivo);
+    for (int i = 0; i < qtdClientesNovos; i++) {
+        lista_final[qtdClientesAtuais + i] = lista_clientes_novos[i];
+    }
 
-  // Liberar memória alocada
-  free(lista_clientes);
+    bubble_sort(lista_final, qtdClientesTotal);
+    fclose(arquivo);
+    arquivo = fopen("clientes.txt", "w"); 
+    for (int i = 0; i < qtdClientesTotal; i++) {
+        fprintf(arquivo, " %s \t %s \t %d \n", lista_final[i].nome,
+                lista_final[i].endereco, lista_final[i].codigo);
+    }
 
-  return 0;
+    fclose(arquivo);
+
+    free(lista_clientes_atuais);
+    free(lista_clientes_novos);
+    free(lista_final);
+
+    return 0;
 }
