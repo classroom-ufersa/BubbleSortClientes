@@ -5,7 +5,7 @@ void preenche_cliente(Cliente *cliente) {
     printf("Digite o nome do cliente: ");
     scanf(" %[^\n]", cliente->nome);
     
-    printf("Digite o endereço do cliente: ");
+    printf("Digite o endereco do cliente: ");
     scanf(" %[^\n]", cliente->endereco);
     
     printf("Digite o codigo do cliente: ");
