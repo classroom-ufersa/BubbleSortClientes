@@ -20,7 +20,7 @@ int main(void) {
     while (fgets(linha, sizeof(linha), arquivo)) {
         lista_clientes_atuais = realloc(lista_clientes_atuais, (qtdClientesAtuais + 1) * sizeof(Cliente));
         if (lista_clientes_atuais == NULL) {
-            printf("Erro ao alocar memória!");
+            printf("Erro ao alocar memoria!");
             fclose(arquivo);
             return 1;
         }
@@ -36,7 +36,7 @@ int main(void) {
     while (cadastro == 1) {
         lista_clientes_novos = realloc(lista_clientes_novos, (qtdClientesNovos + 1) * sizeof(Cliente));
         if (lista_clientes_novos == NULL) {
-            printf("Erro ao alocar memória!");
+            printf("Erro ao alocar memoria!");
             fclose(arquivo);
             return 1;
         }
@@ -56,7 +56,7 @@ int main(void) {
 int qtdClientesTotal = qtdClientesNovos + qtdClientesAtuais;
     lista_final = malloc(qtdClientesTotal * sizeof(Cliente));
     if (lista_final == NULL) {
-        printf("Erro ao alocar memória");
+        printf("Erro ao alocar memoria");
         fclose(arquivo);
         return 1;
     }
