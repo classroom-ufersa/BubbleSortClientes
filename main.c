@@ -32,10 +32,10 @@ int main(void)
                lista_clientes_atuais[qtdClientesAtuais].endereco, &lista_clientes_atuais[qtdClientesAtuais].codigo);
         qtdClientesAtuais++; // funcionalidade que lê o arquivo e trás as informações requisitadas
     }
+    fclose(arquivo);                            // Fecha o arquivo
 
     if (qtdClientesAtuais > 0)
     {
-
         printf("Clientes carregados: %d\n", qtdClientesAtuais); // quantidade de clientes que foram carregados
     }
 
@@ -58,7 +58,7 @@ int main(void)
         scanf("%d", &cadastro);
         if (cadastro == 0)
         {
-            cadastro = 0;
+            break;
         }
     }
 
@@ -84,7 +84,6 @@ int main(void)
     }
 
     bubble_sort(lista_final, qtdClientesTotal); // Chamada do algoritmo bubblesort para ordenar a lista final
-    fclose(arquivo);                            // Fecha o arquivo
     arquivo = fopen("clientes.txt", "w");       // Abre o arquivo de texto e o reescreve ordenando os antigos e os atuais cadastrados
     for (int i = 0; i < qtdClientesTotal; i++)
     { // Percorre a lista final cadastrando todos os clientes no arquivo
