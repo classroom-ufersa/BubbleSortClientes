@@ -1,7 +1,7 @@
 #include "cliente.h"
 
 void bubble_sort(Cliente clientes[], int num_clientes)
-{ // Algoritmo de ordenação bubblesort
+{ 
   int i, j;
   Cliente temp;
   for (i = 0; i < num_clientes - 1; i++)

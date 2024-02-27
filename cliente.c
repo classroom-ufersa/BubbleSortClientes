@@ -1,12 +1,12 @@
 #include "cliente.h"
 
 void preenche_cliente(Cliente *cliente)
-{ // função que preenche o struct clientes
+{ 
     printf("Digite o nome do cliente: ");
-    scanf(" %[^\n]", cliente->nome); // preenche o nome do cliente
+    scanf(" %[^\n]", cliente->nome);
 
     printf("Digite o endereco do cliente: ");
-    scanf(" %[^\n]", cliente->endereco); // preenche o endereço do cliente
+    scanf(" %[^\n]", cliente->endereco); 
 
     printf("Digite o codigo do cliente: ");
 

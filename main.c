@@ -4,45 +4,45 @@
 int main(void)
 {
 
-    Cliente *lista_clientes_atuais = NULL; // Lista que contem os clientes previamente cadastrados(caso exista algum)
-    Cliente *lista_clientes_novos = NULL;  // Lista que armazena os clientes adicionados durante a execução
-    Cliente *lista_final = NULL;           // Essa lista é a concatenação das duas listas anteriores
+    Cliente *lista_clientes_atuais = NULL; 
+    Cliente *lista_clientes_novos = NULL;  
+    Cliente *lista_final = NULL;           
 
     FILE *arquivo;
-    arquivo = fopen("clientes.txt", "a+"); // Função que abre ou cria o arquivo caso ele não exista
+    arquivo = fopen("clientes.txt", "a+");
     if (arquivo == NULL)
-    { // condição de erro caso o arquivo não seja aberto
+    { 
         printf("Erro ao abrir o arquivo!");
         return 1;
     }
 
-    int qtdClientesAtuais = 0; // variavel para a contagem de clientes
-    char linha[256];           // Variavel para armazenar as linhas
+    int qtdClientesAtuais = 0; 
+    char linha[256];        
 
     while (fgets(linha, sizeof(linha), arquivo))
-    { // Funcionalidade que lê o arquivo e aloca memória dinamicamente
+    { 
         lista_clientes_atuais = realloc(lista_clientes_atuais, (qtdClientesAtuais + 1) * sizeof(Cliente));
         if (lista_clientes_atuais == NULL)
-        { // condição de erro caso a alocação de memória falhe
+        { 
             printf("Erro ao alocar memoria!");
             fclose(arquivo);
             return 1;
         }
         sscanf(linha, "%[^\t] \t %[^\t] \t %d", lista_clientes_atuais[qtdClientesAtuais].nome,
                lista_clientes_atuais[qtdClientesAtuais].endereco, &lista_clientes_atuais[qtdClientesAtuais].codigo);
-        qtdClientesAtuais++; // funcionalidade que lê o arquivo e trás as informações requisitadas
+        qtdClientesAtuais++; 
     }
-    fclose(arquivo);                            // Fecha o arquivo
+    fclose(arquivo);                           
 
     if (qtdClientesAtuais > 0)
     {
-        printf("Clientes carregados: %d\n", qtdClientesAtuais); // quantidade de clientes que foram carregados
+        printf("Clientes carregados: %d\n", qtdClientesAtuais);
     }
 
-    int cadastro = 1;         // variavel que serve como condição de parada para os cadastros
-    int qtdClientesNovos = 0; // variavel que armazena a quantidade de clientes cadastrados
+    int cadastro = 1;         
+    int qtdClientesNovos = 0;
     while (cadastro == 1)
-    { // funcionalidade que aloca memória dinamicamente para os novos clientes cadastrados
+    { 
         lista_clientes_novos = realloc(lista_clientes_novos, (qtdClientesNovos + 1) * sizeof(Cliente));
         if (lista_clientes_novos == NULL)
         {
@@ -51,10 +51,10 @@ int main(void)
             return 1;
         }
 
-        preenche_cliente(&lista_clientes_novos[qtdClientesNovos]); // Função que preenche os campos da struct clientes
-        qtdClientesNovos++;                                        // quantidade de novos clientes
+        preenche_cliente(&lista_clientes_novos[qtdClientesNovos]); 
+        qtdClientesNovos++;                                      
 
-        printf("1 - Cadastrar outro cliente / 0 - Para encerrar o programa.\n"); // Menu de escolha
+        printf("1 - Cadastrar outro cliente / 0 - Para encerrar o programa.\n"); 
         scanf("%d", &cadastro);
         if (cadastro == 0)
         {
@@ -62,10 +62,10 @@ int main(void)
         }
     }
 
-    printf("Novos clientes cadastrados: %d\n", qtdClientesNovos); // imprime a quantidade de novos clientes cadastrados
+    printf("Novos clientes cadastrados: %d\n", qtdClientesNovos); 
 
-    int qtdClientesTotal = qtdClientesNovos + qtdClientesAtuais; // quantidade total de clientes cadastrados
-    lista_final = malloc(qtdClientesTotal * sizeof(Cliente));    // alocação de memória para a lista final
+    int qtdClientesTotal = qtdClientesNovos + qtdClientesAtuais; 
+    lista_final = malloc(qtdClientesTotal * sizeof(Cliente));  
     if (lista_final == NULL)
     {
         printf("Erro ao alocar memoria");
@@ -74,7 +74,7 @@ int main(void)
     }
 
     for (int i = 0; i < qtdClientesAtuais; i++)
-    { // concatenação das duas listas de clientes na lista final
+    { 
         lista_final[i] = lista_clientes_atuais[i];
     }
 
@@ -83,19 +83,19 @@ int main(void)
         lista_final[qtdClientesAtuais + i] = lista_clientes_novos[i];
     }
 
-    bubble_sort(lista_final, qtdClientesTotal); // Chamada do algoritmo bubblesort para ordenar a lista final
-    arquivo = fopen("clientes.txt", "w");       // Abre o arquivo de texto e o reescreve ordenando os antigos e os atuais cadastrados
+    bubble_sort(lista_final, qtdClientesTotal); 
+    arquivo = fopen("clientes.txt", "w");       
     for (int i = 0; i < qtdClientesTotal; i++)
-    { // Percorre a lista final cadastrando todos os clientes no arquivo
+    { 
         fprintf(arquivo, "%s \t %s \t %d \n", lista_final[i].nome,
                 lista_final[i].endereco, lista_final[i].codigo);
     }
 
-    fclose(arquivo); // Fecha o arquivo
+    fclose(arquivo); 
 
-    free(lista_clientes_atuais); // Libera memória
-    free(lista_clientes_novos);  // Libera memória
-    free(lista_final);           // Libera memória
+    free(lista_clientes_atuais);
+    free(lista_clientes_novos); 
+    free(lista_final);          
 
     return 0;
 }
